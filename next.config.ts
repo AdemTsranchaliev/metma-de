@@ -1,15 +1,23 @@
 import type { NextConfig } from "next";
 
 const isGithubPages = process.env.GITHUB_PAGES === "true";
+const basePath = isGithubPages ? "/metma-de" : "";
 
 const nextConfig: NextConfig = {
   ...(isGithubPages
     ? {
         output: "export" as const,
-        basePath: "/metma-de",
-        assetPrefix: "/metma-de",
+        basePath,
+        assetPrefix: basePath,
         trailingSlash: true,
-        images: { unoptimized: true },
+        images: {
+          unoptimized: true,
+          loader: "custom",
+          loaderFile: "./imageLoader.ts",
+        },
+        env: {
+          NEXT_PUBLIC_BASE_PATH: basePath,
+        },
       }
     : {
         images: {
