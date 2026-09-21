@@ -40,7 +40,7 @@ export function Header() {
           className="relative block h-8 w-[7.5rem] shrink-0 sm:h-9 sm:w-[8.5rem] md:h-10 md:w-[9.5rem]"
         >
           <Image
-            src="/images/logo-brand.png"
+            src="/images/logo-brand-v2.png"
             alt="METMA"
             fill
             priority

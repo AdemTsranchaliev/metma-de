@@ -18,7 +18,7 @@ export function Footer() {
               className="relative inline-block h-8 w-[7.5rem] sm:h-9 sm:w-[8.5rem]"
             >
               <Image
-                src="/images/logo-brand.png"
+                src="/images/logo-brand-v2.png"
                 alt="METMA"
                 fill
                 sizes="136px"
