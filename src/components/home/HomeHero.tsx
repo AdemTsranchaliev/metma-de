@@ -4,35 +4,22 @@ import { MagneticCta } from "@/components/MagneticCta";
 
 export function HomeHero() {
   return (
-    <section className="relative isolate min-h-[min(58vh,520px)] overflow-hidden bg-[#fff8ef] text-[var(--metma-ink)] sm:min-h-[min(64vh,580px)] md:min-h-[min(72vh,680px)]">
+    <section className="relative isolate min-h-[min(58vh,520px)] overflow-hidden bg-[#f7f5f2] text-[var(--metma-ink)] sm:min-h-[min(64vh,580px)] md:min-h-[min(72vh,680px)]">
       <div className="hero-media absolute inset-0">
         <Image
           src="/images/hero-1.jpg"
-          alt=""
+          alt="METMA Ostereierfarben"
           fill
           priority
-          quality={70}
-          aria-hidden
-          className="hero-poster object-cover object-[72%_center] opacity-30 mix-blend-multiply sm:object-[68%_center] md:object-center"
+          quality={88}
+          className="object-cover object-[78%_center] sm:object-[72%_center] md:object-center"
           sizes="100vw"
         />
-        <video
-          className="hero-video absolute inset-0 h-full w-full object-cover object-[55%_center] md:object-center"
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          poster="/images/hero-1.jpg"
-          aria-hidden
-        >
-          <source src="/videos/hero-explosion.mp4" type="video/mp4" />
-        </video>
       </div>
 
       <div
         aria-hidden
-        className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,248,239,0.72)_0%,rgba(255,248,239,0.28)_42%,rgba(255,248,239,0.78)_100%)] md:bg-[linear-gradient(105deg,rgba(255,248,239,0.92)_0%,rgba(255,248,239,0.62)_34%,rgba(255,248,239,0.12)_58%,transparent_74%)]"
+        className="absolute inset-0 bg-[linear-gradient(180deg,rgba(247,245,242,0.55)_0%,rgba(247,245,242,0.2)_40%,rgba(247,245,242,0.7)_100%)] md:bg-[linear-gradient(100deg,rgba(247,245,242,0.92)_0%,rgba(247,245,242,0.55)_36%,rgba(247,245,242,0.08)_58%,transparent_72%)]"
       />
 
       <div className="hero-copy relative z-10 flex min-h-[min(58vh,520px)] flex-col justify-end px-0 pb-9 pt-8 sm:min-h-[min(64vh,580px)] sm:pb-12 md:min-h-[min(72vh,680px)] md:justify-center md:pb-16 md:pt-12">
