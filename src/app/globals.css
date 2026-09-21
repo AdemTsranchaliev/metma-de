@@ -41,7 +41,7 @@
   --color-metma-sand: var(--metma-sand);
   --color-metma-navy: var(--metma-navy);
   --font-sans: var(--font-rubik);
-  --font-display: var(--font-syne);
+  --font-display: var(--font-outfit);
 }
 
 * {
@@ -93,7 +93,8 @@ img {
 }
 
 .font-display {
-  font-family: var(--font-syne), Syne, sans-serif;
+  font-family: var(--font-outfit), Outfit, sans-serif;
+  letter-spacing: -0.03em;
 }
 
 .btn-metma,
@@ -375,7 +376,7 @@ img {
   bottom: 78%;
   z-index: 4;
   translate: -50% 0;
-  font-family: var(--font-syne), Syne, sans-serif;
+  font-family: var(--font-outfit), Outfit, sans-serif;
   font-size: 0.85rem;
   font-weight: 800;
   letter-spacing: 0.08em;
