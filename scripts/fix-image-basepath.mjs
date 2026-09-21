@@ -11,10 +11,13 @@ const outDir = path.join(process.cwd(), "out");
 
 function rewrite(content) {
   let next = content.replaceAll(`${BASE}/images/`, "\0BASEIMG\0");
+  next = next.replaceAll(`${BASE}/videos/`, "\0BASEVID\0");
   next = next.replaceAll(`${BASE}/favicon.png`, "\0BASEFAV\0");
   next = next.replaceAll("/images/", `${BASE}/images/`);
+  next = next.replaceAll("/videos/", `${BASE}/videos/`);
   next = next.replaceAll("/favicon.png", `${BASE}/favicon.png`);
   next = next.replaceAll("\0BASEIMG\0", `${BASE}/images/`);
+  next = next.replaceAll("\0BASEVID\0", `${BASE}/videos/`);
   next = next.replaceAll("\0BASEFAV\0", `${BASE}/favicon.png`);
   return next;
 }
@@ -29,7 +32,11 @@ function walk(dir) {
     }
     if (!/\.(html|js|css|json|txt)$/.test(name)) continue;
     const before = fs.readFileSync(full, "utf8");
-    if (!before.includes("/images/") && !before.includes("/favicon.png")) {
+    if (
+      !before.includes("/images/") &&
+      !before.includes("/videos/") &&
+      !before.includes("/favicon.png")
+    ) {
       continue;
     }
     const after = rewrite(before);
@@ -43,4 +50,4 @@ if (!fs.existsSync(outDir)) {
 }
 
 walk(outDir);
-console.log(`Prefixed /images and /favicon with ${BASE}`);
+console.log(`Prefixed /images, /videos and /favicon with ${BASE}`);
