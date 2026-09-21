@@ -27,7 +27,7 @@ export function HomeHero() {
           <p className="eyebrow text-[var(--metma-rose)]">
             Farbe · Ostern · Seit 1999
           </p>
-          <h1 className="mt-2.5 font-display text-[clamp(2.85rem,14vw,6.2rem)] font-bold leading-[0.88] tracking-[-0.045em] text-[var(--metma-ink)] sm:mt-3">
+          <h1 className="mt-2.5 font-display text-[clamp(2.85rem,14vw,6.2rem)] font-extrabold leading-[0.9] tracking-[-0.02em] text-[var(--metma-ink)] sm:mt-3">
             METMA
           </h1>
           <p className="mt-3 max-w-md text-[0.95rem] leading-relaxed text-[var(--metma-mute)] sm:mt-4 sm:text-base md:text-lg">
