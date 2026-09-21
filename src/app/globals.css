@@ -196,16 +196,6 @@ img {
   will-change: transform;
 }
 
-.hero-video {
-  z-index: 1;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hero-video {
-    display: none;
-  }
-}
-
 .hero-copy {
   animation: copy-in 0.85s var(--ease) 0.1s both;
 }
