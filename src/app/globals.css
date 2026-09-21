@@ -41,7 +41,7 @@
   --color-metma-sand: var(--metma-sand);
   --color-metma-navy: var(--metma-navy);
   --font-sans: var(--font-rubik);
-  --font-display: var(--font-outfit);
+  --font-display: var(--font-fredoka);
 }
 
 * {
@@ -93,8 +93,22 @@ img {
 }
 
 .font-display {
-  font-family: var(--font-outfit), Outfit, sans-serif;
-  letter-spacing: -0.03em;
+  font-family: var(--font-fredoka), Fredoka, sans-serif;
+  letter-spacing: -0.01em;
+}
+
+/* Logo-like METMA wordmark — red fill, white stroke, soft shadow */
+.brand-mark {
+  font-family: var(--font-fredoka), Fredoka, sans-serif;
+  font-weight: 700;
+  color: var(--metma-rose);
+  letter-spacing: 0.04em;
+  line-height: 0.95;
+  -webkit-text-stroke: 0.055em #ffffff;
+  paint-order: stroke fill;
+  text-shadow:
+    0.045em 0.065em 0 rgba(23, 23, 23, 0.18),
+    0.08em 0.11em 0.12em rgba(23, 23, 23, 0.12);
 }
 
 .btn-metma,
@@ -376,7 +390,7 @@ img {
   bottom: 78%;
   z-index: 4;
   translate: -50% 0;
-  font-family: var(--font-outfit), Outfit, sans-serif;
+  font-family: var(--font-fredoka), Fredoka, sans-serif;
   font-size: 0.85rem;
   font-weight: 800;
   letter-spacing: 0.08em;

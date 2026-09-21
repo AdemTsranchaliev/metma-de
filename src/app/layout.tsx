@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Outfit, Rubik } from "next/font/google";
+import { Fredoka, Rubik } from "next/font/google";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { CookieBar } from "@/components/CookieBar";
@@ -11,11 +11,11 @@ const rubik = Rubik({
   display: "swap",
 });
 
-const outfit = Outfit({
+const fredoka = Fredoka({
   subsets: ["latin", "latin-ext"],
-  variable: "--font-outfit",
+  variable: "--font-fredoka",
   display: "swap",
-  weight: ["500", "600", "700", "800"],
+  weight: ["500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -32,7 +32,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="de"
-      className={`${rubik.variable} ${outfit.variable} h-full antialiased`}
+      className={`${rubik.variable} ${fredoka.variable} h-full antialiased`}
     >
       <body className="relative flex min-h-full flex-col font-sans">
         <div className="relative z-10 flex min-h-full flex-1 flex-col">
