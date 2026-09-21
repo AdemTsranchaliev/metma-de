@@ -114,6 +114,18 @@ img {
     transform 0.22s var(--ease);
 }
 
+.btn-metma:active,
+.btn-dark:active,
+.btn-outline:active {
+  transform: scale(0.97);
+}
+
+.magnetic-cta > .btn-metma,
+.magnetic-cta > .btn-dark,
+.magnetic-cta > .btn-outline {
+  width: 100%;
+}
+
 @media (min-width: 640px) {
   .btn-metma,
   .btn-dark,

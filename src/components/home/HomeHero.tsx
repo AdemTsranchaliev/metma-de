@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { MagneticCta } from "@/components/MagneticCta";
 
 export function HomeHero() {
   return (
@@ -32,15 +33,19 @@ export function HomeHero() {
             Produktion.
           </p>
           <div className="mt-6 flex flex-col gap-2.5 sm:mt-8 sm:flex-row sm:flex-wrap sm:gap-3">
-            <Link href="/produkte" className="btn-metma w-full sm:w-auto">
-              Kollektion öffnen
-            </Link>
-            <Link
-              href="/uber-uns"
-              className="btn-outline w-full border-white/40 text-white hover:border-white hover:bg-white/10 sm:w-auto"
-            >
-              Über uns
-            </Link>
+            <MagneticCta className="w-full sm:w-auto">
+              <Link href="/produkte" className="btn-metma">
+                Kollektion öffnen
+              </Link>
+            </MagneticCta>
+            <MagneticCta className="w-full sm:w-auto">
+              <Link
+                href="/uber-uns"
+                className="btn-outline border-white/40 text-white hover:border-white hover:bg-white/10"
+              >
+                Über uns
+              </Link>
+            </MagneticCta>
           </div>
         </div>
       </div>

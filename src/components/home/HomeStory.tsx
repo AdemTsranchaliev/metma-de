@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { MagneticCta } from "@/components/MagneticCta";
 import { Reveal } from "@/components/Reveal";
 
 const points = [
@@ -43,9 +44,11 @@ export function HomeStory() {
             Einzelhandelsketten in Bulgarien und Europa — kompromisslos in
             Qualität und Service.
           </p>
-          <Link href="/uber-uns" className="btn-metma mt-6 w-full sm:mt-8 sm:w-auto">
-            Mehr erfahren
-          </Link>
+          <MagneticCta className="mt-6 w-full sm:mt-8 sm:w-auto">
+            <Link href="/uber-uns" className="btn-metma">
+              Mehr erfahren
+            </Link>
+          </MagneticCta>
         </Reveal>
 
         <div className="flex flex-col gap-3">
