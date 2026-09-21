@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { BrandMark } from "@/components/BrandMark";
 import { MagneticCta } from "@/components/MagneticCta";
 import { Reveal } from "@/components/Reveal";
 
@@ -33,9 +34,10 @@ export function HomeStory() {
         <Reveal className="lg:sticky lg:top-28">
           <p className="eyebrow text-[var(--metma-rose)]">Über METMA</p>
           <h2 className="mt-2.5 sm:mt-3">
-            <span className="brand-mark block text-[clamp(1.85rem,7vw,3.3rem)]">
-              METMA
-            </span>
+            <BrandMark
+              variant="soft"
+              className="block text-[clamp(1.85rem,7vw,3.3rem)]"
+            />
             <span className="mt-1.5 block font-display text-[clamp(1.1rem,4.2vw,1.85rem)] font-semibold leading-snug tracking-[-0.02em] text-[var(--metma-blue)] sm:mt-2">
               Das einzige Unternehmen für Eierfärben in Bulgarien
             </span>
