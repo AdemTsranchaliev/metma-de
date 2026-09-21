@@ -7,11 +7,11 @@ export function HomeHero() {
     <section className="relative isolate min-h-[min(58vh,520px)] overflow-hidden bg-[#f7f5f2] text-[var(--metma-ink)] sm:min-h-[min(64vh,580px)] md:min-h-[min(72vh,680px)]">
       <div className="hero-media absolute inset-0">
         <Image
-          src="/images/hero-1.jpg"
+          src="/images/hero-color-burst.jpg"
           alt="METMA Ostereierfarben"
           fill
           priority
-          quality={88}
+          quality={75}
           className="object-cover object-[78%_center] sm:object-[72%_center] md:object-center"
           sizes="100vw"
         />
@@ -19,7 +19,7 @@ export function HomeHero() {
 
       <div
         aria-hidden
-        className="absolute inset-0 bg-[linear-gradient(180deg,rgba(247,245,242,0.55)_0%,rgba(247,245,242,0.2)_40%,rgba(247,245,242,0.7)_100%)] md:bg-[linear-gradient(100deg,rgba(247,245,242,0.92)_0%,rgba(247,245,242,0.55)_36%,rgba(247,245,242,0.08)_58%,transparent_72%)]"
+        className="absolute inset-0 bg-[linear-gradient(180deg,rgba(247,245,242,0.45)_0%,rgba(247,245,242,0.12)_40%,rgba(247,245,242,0.55)_100%)] md:bg-[linear-gradient(100deg,rgba(247,245,242,0.88)_0%,rgba(247,245,242,0.4)_36%,rgba(247,245,242,0.05)_58%,transparent_72%)]"
       />
 
       <div className="hero-copy relative z-10 flex min-h-[min(58vh,520px)] flex-col justify-end px-0 pb-9 pt-8 sm:min-h-[min(64vh,580px)] sm:pb-12 md:min-h-[min(72vh,680px)] md:justify-center md:pb-16 md:pt-12">
