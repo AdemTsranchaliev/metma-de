@@ -15,13 +15,13 @@ export function Footer() {
             <Link
               href="/"
               aria-label="METMA Startseite"
-              className="relative inline-block h-8 w-[7.5rem] sm:h-9 sm:w-[8.5rem]"
+              className="relative inline-block h-9 w-[8.75rem] sm:h-10 sm:w-[10rem]"
             >
               <Image
-                src="/images/logo-brand-v2.png"
+                src="/images/logo-brand-v3.png"
                 alt="METMA"
                 fill
-                sizes="136px"
+                sizes="160px"
                 className="object-contain object-left"
               />
             </Link>
