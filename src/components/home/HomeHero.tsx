@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { BrandMark } from "@/components/BrandMark";
 import { MagneticCta } from "@/components/MagneticCta";
 
 export function HomeHero() {
@@ -27,9 +28,11 @@ export function HomeHero() {
           <p className="eyebrow text-[var(--metma-rose)]">
             Farbe · Ostern · Seit 1999
           </p>
-          <h1 className="brand-mark mt-2.5 text-[clamp(2.85rem,14vw,6.2rem)] sm:mt-3">
-            METMA
-          </h1>
+          <BrandMark
+            as="h1"
+            variant="comic"
+            className="mt-2.5 text-[clamp(2.85rem,14vw,6.2rem)] sm:mt-3"
+          />
           <p className="mt-3 max-w-md text-[0.95rem] leading-relaxed text-[var(--metma-mute)] sm:mt-4 sm:text-base md:text-lg">
             Neue Art, Ostern zu färben — Sets und Displays aus eigener
             Produktion.
