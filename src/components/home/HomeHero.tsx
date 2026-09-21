@@ -4,23 +4,43 @@ import { MagneticCta } from "@/components/MagneticCta";
 
 export function HomeHero() {
   return (
-    <section className="relative isolate min-h-[min(58vh,520px)] overflow-hidden text-[var(--metma-ink)] sm:min-h-[min(64vh,580px)] md:min-h-[min(72vh,680px)]">
-      <div className="hero-media absolute inset-0 bg-[var(--metma-sand)]">
-        <Image
-          src="/images/hero-1.jpg"
-          alt="METMA Ostereierfarben"
-          fill
-          priority
-          quality={85}
-          className="object-cover object-[72%_center] opacity-90 sm:object-[68%_center] md:object-center"
-          sizes="100vw"
-        />
-      </div>
-
-      {/* Light wash — readable copy without a heavy dark hero */}
+    <section className="relative isolate min-h-[min(58vh,520px)] overflow-hidden bg-[#fff8ef] text-[var(--metma-ink)] sm:min-h-[min(64vh,580px)] md:min-h-[min(72vh,680px)]">
+      {/* Soft brand glow behind the explosion */}
       <div
         aria-hidden
-        className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,252,247,0.82)_0%,rgba(255,244,214,0.55)_38%,rgba(255,252,247,0.88)_100%)] md:bg-[linear-gradient(105deg,rgba(255,252,247,0.94)_0%,rgba(255,244,214,0.72)_34%,rgba(255,252,247,0.2)_58%,transparent_74%)]"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_70%_45%,rgba(240,201,176,0.55)_0%,transparent_55%),radial-gradient(ellipse_at_30%_20%,rgba(207,192,228,0.35)_0%,transparent_45%),linear-gradient(180deg,#fffaf3_0%,#fff4e4_100%)]"
+      />
+
+      <div className="hero-media absolute inset-0">
+        {/* Static fallback when video is off / reduced motion */}
+        <Image
+          src="/images/hero-1.jpg"
+          alt=""
+          fill
+          priority
+          quality={70}
+          aria-hidden
+          className="hero-poster object-cover object-[72%_center] opacity-40 mix-blend-multiply sm:object-[68%_center] md:object-center"
+          sizes="100vw"
+        />
+        <video
+          className="hero-video absolute inset-0 h-full w-full object-cover object-[55%_center] mix-blend-screen md:object-center"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          poster="/images/hero-1.jpg"
+          aria-hidden
+        >
+          <source src="/videos/hero-explosion.mp4" type="video/mp4" />
+        </video>
+      </div>
+
+      {/* Light readable wash on the copy side */}
+      <div
+        aria-hidden
+        className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,250,243,0.88)_0%,rgba(255,248,239,0.45)_45%,rgba(255,250,243,0.82)_100%)] md:bg-[linear-gradient(105deg,rgba(255,250,243,0.96)_0%,rgba(255,248,239,0.78)_32%,rgba(255,250,243,0.15)_58%,transparent_72%)]"
       />
 
       <div className="hero-copy relative z-10 flex min-h-[min(58vh,520px)] flex-col justify-end px-0 pb-9 pt-8 sm:min-h-[min(64vh,580px)] sm:pb-12 md:min-h-[min(72vh,680px)] md:justify-center md:pb-16 md:pt-12">

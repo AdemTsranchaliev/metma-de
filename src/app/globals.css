@@ -191,9 +191,23 @@ img {
   animation: hero-in 1.25s var(--ease) both;
 }
 
-.hero-media img {
-  animation: hero-drift 16s ease-in-out infinite alternate;
-  will-change: transform;
+.hero-media img.hero-poster {
+  animation: none;
+}
+
+.hero-video {
+  z-index: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-video {
+    display: none;
+  }
+
+  .hero-media img.hero-poster {
+    opacity: 0.55;
+    mix-blend-mode: multiply;
+  }
 }
 
 .hero-copy {
