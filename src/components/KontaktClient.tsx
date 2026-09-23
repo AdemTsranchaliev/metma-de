@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
@@ -7,7 +8,9 @@ import { ContactForm } from "@/components/ContactForm";
 import { SectionScatter } from "@/components/easter/EasterScatter";
 import { PageIntro } from "@/components/PageIntro";
 import { EmailIcon, LocationIcon, PhoneIcon } from "@/components/icons";
-import { partners, products } from "@/data/home";
+import { partners, products as staticProducts } from "@/data/home";
+import { isFirebaseConfigured } from "@/lib/firebase/client";
+import { readProducts, type StoreProduct } from "@/lib/firebase/read";
 
 const categoryLabels: Record<string, string> = {
   farbstoffe: "Farbstoffe",
@@ -15,12 +18,79 @@ const categoryLabels: Record<string, string> = {
   dekorationen: "Dekorationen",
 };
 
+type InquiryProduct = {
+  id: string;
+  name: string;
+  slug: string;
+  image: string;
+  category: string;
+};
+
+function toInquiryProduct(
+  p: Pick<InquiryProduct, "id" | "name" | "slug" | "image" | "category">,
+): InquiryProduct {
+  return {
+    id: p.id,
+    name: p.name,
+    slug: p.slug,
+    image: p.image,
+    category: p.category,
+  };
+}
+
 export function KontaktClient() {
   const searchParams = useSearchParams();
   const slug = searchParams.get("produkt");
-  const product = slug
-    ? products.find((p) => p.slug === slug) ?? null
-    : null;
+  const [product, setProduct] = useState<InquiryProduct | null>(() => {
+    if (!slug) return null;
+    const local = staticProducts.find((p) => p.slug === slug);
+    return local ? toInquiryProduct(local) : null;
+  });
+  const [loadingProduct, setLoadingProduct] = useState(
+    Boolean(slug && isFirebaseConfigured),
+  );
+
+  useEffect(() => {
+    if (!slug) {
+      setProduct(null);
+      setLoadingProduct(false);
+      return;
+    }
+
+    let cancelled = false;
+
+    async function load() {
+      const local = staticProducts.find((p) => p.slug === slug);
+      if (local) {
+        setProduct(toInquiryProduct(local));
+      }
+
+      if (!isFirebaseConfigured) {
+        setLoadingProduct(false);
+        return;
+      }
+
+      try {
+        const list = await readProducts();
+        if (cancelled) return;
+        const fromFb = list.find((p: StoreProduct) => p.slug === slug);
+        if (fromFb) {
+          setProduct(toInquiryProduct(fromFb));
+        } else if (!local) {
+          setProduct(null);
+        }
+      } catch (err) {
+        console.error(err);
+      } finally {
+        if (!cancelled) setLoadingProduct(false);
+      }
+    }
+
+    void load();
+    return () => {
+      cancelled = true;
+    };
+  }, [slug]);
 
   const defaultSubject = product
     ? `Anfrage: ${product.name} (Art. ${product.id})`
@@ -50,7 +120,11 @@ export function KontaktClient() {
         subtitle={
           product
             ? `Zu „${product.name}“ — Betreff und Nachricht sind bereits ausgefüllt.`
-            : "Fragen zu Sortiment, Displays oder Großhandel? Wir melden uns gerne."
+            : slug && loadingProduct
+              ? "Produkt wird geladen…"
+              : slug && !loadingProduct && !product
+                ? "Produkt nicht gefunden — Sie können uns trotzdem schreiben."
+                : "Fragen zu Sortiment, Displays oder Großhandel? Wir melden uns gerne."
         }
       />
 
@@ -110,13 +184,14 @@ export function KontaktClient() {
           <div className="bg-[var(--metma-sand)] px-5 py-7 sm:px-8 sm:py-8">
             {product ? (
               <div className="mb-6 flex gap-4 border-2 border-[var(--metma-rose)] bg-white p-3 sm:p-4">
-                <div className="relative h-20 w-20 shrink-0 overflow-hidden bg-[linear-gradient(145deg,var(--metma-blue-soft),var(--metma-peach),var(--metma-butter))] sm:h-24 sm:w-24">
+                <div className="relative h-20 w-20 shrink-0 overflow-hidden bg-white sm:h-24 sm:w-24">
                   <Image
                     src={product.image}
                     alt={product.name}
                     fill
                     className="object-contain p-2"
                     sizes="96px"
+                    unoptimized={product.image.startsWith("http")}
                   />
                 </div>
                 <div className="min-w-0 flex-1 self-center">
@@ -155,6 +230,7 @@ export function KontaktClient() {
                 defaultSubject={defaultSubject}
                 defaultMessage={defaultMessage}
                 productInquiry={Boolean(product)}
+                product={product}
               />
             </div>
           </div>
