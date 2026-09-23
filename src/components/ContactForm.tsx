@@ -5,6 +5,8 @@ import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { MagneticCta } from "@/components/MagneticCta";
 import { getDb, isFirebaseConfigured } from "@/lib/firebase/client";
 
+const CONTACT_EMAIL = "sales@metma-de.com";
+
 type Props = {
   defaultSubject?: string;
   defaultMessage?: string;
@@ -46,6 +48,24 @@ export function ContactForm({
       return;
     }
 
+    const resolvedSubject =
+      subject ||
+      (product ? `Anfrage: ${product.name}` : "Kontaktanfrage METMA");
+
+    const productBlock = product
+      ? [
+          "",
+          "— Produkt —",
+          `Name: ${product.name}`,
+          `Art.-Nr.: ${product.id}`,
+          `Kategorie: ${product.category ?? "—"}`,
+          `Slug: ${product.slug}`,
+          product.image ? `Bild: ${product.image}` : null,
+        ]
+          .filter(Boolean)
+          .join("\n")
+      : "";
+
     try {
       if (isFirebaseConfigured) {
         try {
@@ -53,7 +73,7 @@ export function ContactForm({
             site: "De",
             name,
             email,
-            subject: subject || null,
+            subject: resolvedSubject,
             message,
             productId: product?.id ?? null,
             productSlug: product?.slug ?? null,
@@ -68,32 +88,53 @@ export function ContactForm({
         }
       }
 
-      const mailSubject = encodeURIComponent(
-        subject || (product ? `Anfrage: ${product.name}` : "Kontaktanfrage METMA"),
+      const res = await fetch(
+        `https://formsubmit.co/ajax/${CONTACT_EMAIL}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify({
+            name,
+            email,
+            _replyto: email,
+            _subject: `[METMA DE] ${resolvedSubject}`,
+            _template: "table",
+            message: `${message}${productBlock}`,
+            product: product?.name ?? "",
+            sku: product?.id ?? "",
+          }),
+        },
       );
-      const mailBody = encodeURIComponent(
-        [
-          message,
-          "",
-          "—",
-          `Name: ${name}`,
-          `E-Mail: ${email}`,
-          product
-            ? `Produkt: ${product.name} (Art. ${product.id})`
-            : null,
-          product ? `Slug: ${product.slug}` : null,
-        ]
-          .filter(Boolean)
-          .join("\n"),
-      );
-      window.location.href = `mailto:sales@metma-de.com?subject=${mailSubject}&body=${mailBody}`;
+
+      if (!res.ok) {
+        throw new Error(`FormSubmit ${res.status}`);
+      }
+
+      const json = (await res.json().catch(() => null)) as {
+        success?: string | boolean;
+        message?: string;
+      } | null;
+
+      if (
+        json &&
+        json.success !== true &&
+        json.success !== "true" &&
+        !String(json.message ?? "")
+          .toLowerCase()
+          .includes("success")
+      ) {
+        throw new Error(json.message || "FormSubmit rejected");
+      }
 
       setSent(true);
       form.reset();
     } catch (err) {
       console.error(err);
       setError(
-        "Senden fehlgeschlagen. Bitte erneut versuchen oder sales@metma-de.com schreiben.",
+        "Senden fehlgeschlagen. Bitte erneut versuchen oder direkt an sales@metma-de.com schreiben.",
       );
     } finally {
       setSending(false);
@@ -107,9 +148,8 @@ export function ContactForm({
           Danke!
         </p>
         <p className="mt-2 text-sm leading-6 text-[var(--metma-mute)]">
-          Ihre Anfrage ist gespeichert. Wenn sich Ihr E-Mail-Programm geöffnet
-          hat, senden Sie die Nachricht bitte noch ab — so erreichen Sie uns am
-          schnellsten.
+          Ihre Nachricht wurde an {CONTACT_EMAIL} gesendet. Wir melden uns
+          bald.
         </p>
       </div>
     );
