@@ -109,24 +109,30 @@ export function ContactForm({
         },
       );
 
-      if (!res.ok) {
-        throw new Error(`FormSubmit ${res.status}`);
+      const raw = await res.text();
+      let json: { success?: string | boolean; message?: string } | null =
+        null;
+      try {
+        json = JSON.parse(raw) as {
+          success?: string | boolean;
+          message?: string;
+        };
+      } catch {
+        json = null;
       }
 
-      const json = (await res.json().catch(() => null)) as {
-        success?: string | boolean;
-        message?: string;
-      } | null;
+      const msg = String(json?.message ?? raw ?? "").toLowerCase();
+      const ok =
+        res.ok &&
+        (json?.success === true ||
+          json?.success === "true" ||
+          msg.includes("success") ||
+          // First submission: FormSubmit emails an Activate link to the inbox
+          msg.includes("activation") ||
+          msg.includes("activate form"));
 
-      if (
-        json &&
-        json.success !== true &&
-        json.success !== "true" &&
-        !String(json.message ?? "")
-          .toLowerCase()
-          .includes("success")
-      ) {
-        throw new Error(json.message || "FormSubmit rejected");
+      if (!ok) {
+        throw new Error(json?.message || `FormSubmit ${res.status}`);
       }
 
       setSent(true);
