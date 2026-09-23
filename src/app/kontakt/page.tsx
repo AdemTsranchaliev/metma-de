@@ -10,13 +10,7 @@ export const metadata: Metadata = {
 
 export default function KontaktPage() {
   return (
-    <Suspense
-      fallback={
-        <div className="container-metma py-16 text-sm text-[var(--metma-mute)]">
-          Laden…
-        </div>
-      }
-    >
+    <Suspense fallback={null}>
       <KontaktClient />
     </Suspense>
   );
