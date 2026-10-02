@@ -1,17 +1,23 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
+import { JsonLd } from "@/components/JsonLd";
 import { KontaktClient } from "@/components/KontaktClient";
+import { contactPageJsonLd, pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Kontakt – METMA Ltd. – Eierfarbe",
+export const metadata: Metadata = pageMetadata({
+  title: "Kontakt",
   description:
-    "Kontaktieren Sie METMA — Adresse, Telefon und Nachricht für Sortiment, Displays und Großhandel.",
-};
+    "Kontakt zu METMA: Adresse in Pazardzhik, Telefon und Anfrage für Sortiment, Displays und Großhandel.",
+  path: "/kontakt",
+});
 
 export default function KontaktPage() {
   return (
-    <Suspense fallback={null}>
-      <KontaktClient />
-    </Suspense>
+    <>
+      <JsonLd data={contactPageJsonLd({ title: "Kontakt", path: "/kontakt" })} />
+      <Suspense fallback={null}>
+        <KontaktClient />
+      </Suspense>
+    </>
   );
 }

@@ -1,11 +1,16 @@
 import type { Metadata } from "next";
+import { JsonLd } from "@/components/JsonLd";
 import { PageIntro } from "@/components/PageIntro";
 import { ProductCatalog } from "@/components/ProductCatalog";
 import { getProducts } from "@/lib/catalog";
+import { breadcrumbJsonLd, itemListJsonLd, pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Produkte – METMA Ltd. – Eierfarbe",
-};
+export const metadata: Metadata = pageMetadata({
+  title: "Produkte",
+  description:
+    "Eierfarben, Sets und Dekorationen von METMA. Sortiment aus eigener Produktion für Ostern, Handel und Großbestellung.",
+  path: "/produkte",
+});
 
 export const revalidate = 60;
 
@@ -14,6 +19,21 @@ export default async function ProduktePage() {
 
   return (
     <>
+      <JsonLd
+        data={[
+          breadcrumbJsonLd([
+            { name: "Startseite", path: "/" },
+            { name: "Produkte", path: "/produkte" },
+          ]),
+          itemListJsonLd(
+            "Produkte",
+            products.map((item) => ({
+              name: item.name,
+              path: `/produkte/${item.slug}`,
+            })),
+          ),
+        ]}
+      />
       <PageIntro
         eyebrow="Sortiment"
         title="Produkte"

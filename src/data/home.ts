@@ -5,6 +5,8 @@ export type Product = {
   name: string;
   slug: string;
   image: string;
+  videoUrl?: string | null;
+  videoIsInstruction?: boolean;
   category: ProductCategorySlug;
   shortDescription: string;
   description: string;
@@ -312,11 +314,6 @@ export const team = [
     name: "Vasilka Nonova",
     role: "Vertriebsleiter",
     image: "/images/team/vasilka.png",
-  },
-  {
-    name: "Anna Pishinkova",
-    role: "Verkäuferassistent",
-    image: "/images/team/anna.png",
   },
 ] as const;
 
